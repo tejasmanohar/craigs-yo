@@ -1,6 +1,6 @@
 /**
  * Main application file
- */
+*/
 
 'use strict';
 
