@@ -1,6 +1,6 @@
 /**
  * Main application file
-*/
+ */
 
 'use strict';
 
@@ -47,9 +47,13 @@ function handleSubscriber(doc, next) {
   async.detect(doc.following, function(subreddit, cb) {
     request.get('http://www.reddit.com/r/' + subreddit + '/new.json').end(function(err, res) {
       if (err) {
-        cb(err);
+        return cb(null);
       }
-      var posts = res.body.data.children;
+      try {
+        var posts = res.body.data.children;
+      } catch (e) {
+        return cb(null);
+      }
       cb(_.find(posts, function(post) {
         return last.isBefore(post.created_utc);
       }));
