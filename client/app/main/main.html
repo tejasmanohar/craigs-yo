@@ -1,0 +1,28 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<header class="hero-unit" id="banner">
+  <div class="container">
+    <h1>Yo Reddit</h1>
+    <p class="lead">Get updates from Reddit straight to your Yo!</p>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
+      <form class="form-horizontal" role="form">
+        <input type "text" class="form-control" ng-model="data.yoName" placeholder="Your Yo" />
+        <input type "text" class="form-control" ng-model="data.subreddit" placeholder="Subreddit name" />
+        <button class="btn btn-primary" ng-click="submit()">Sign me up!</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p><a href="https://twitter.com/simplyianm">@simplyianm</a> |
+    <a href="https://github.com/simplyianm/yo-reddit">Github</a>
+    </p>
+  </div>
+</footer>
