@@ -18,6 +18,14 @@ var config = require('./config/environment');
 // Connect to database
 mongoose.connect(config.mongo.uri, config.mongo.options);
 
+process.on('uncaughtException', function (err) {
+  console.log('Caught exception: ' + err);
+});
+
+setTimeout(function () {
+  console.log('This will still run.');
+}, 500);
+
 var Subscriber = mongoose.model('Subscriber', new mongoose.Schema({
   yo: {
     type: String,
