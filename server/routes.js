@@ -8,10 +8,16 @@ var errors = require('./components/errors');
 var mongoose = require('mongoose');
 var request = require('request');
 
-function handleSubscriber(url) {
+function handleNewSubscriber(url, yoName, cb) {
   request(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      return body;
+      var Subscriber = mongoose.model('Subscriber');
+      var doc = new Subscriber({
+            yo: yoName.toLowerCase(),
+            url: url,
+            body: body
+      });
+      cb(doc);
     }
   });
 };
@@ -27,19 +33,20 @@ module.exports = function(app) {
         yo: yoName
       }).exec(function(err, doc) {
         if (!doc) {
-          doc = new Subscriber({
-            yo: yoName.toLowerCase(),
-            url: link,
-            body: handleSubscriber(link)
+          handleNewSubscriber(link, yoName.toLowerCase(), 
+            function (newDoc) {
+              newDoc.save(function(err) {
+                res.send('OK');
+              });
           });
         } else {
           doc.following.push(link);
+          doc.save(function(err) {
+            res.send('OK');
+          });
         }
-        doc.save(function(err) {
-          res.send('OK');
-        });
-      });
     });
+  });
 
   app.route('/unsubscribe')
     .get(function(req, res) {
