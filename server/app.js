@@ -14,7 +14,6 @@ var moment = require('moment');
 var mongoose = require('mongoose');
 var request = require('superagent');
 var config = require('./config/environment');
-var craigslist = require('craigslist');
 
 process.on('uncaughtException', function (err) {
   console.log('Caught exception: ' + err);
@@ -49,51 +48,30 @@ var yo = (function() {
   return new Yo(process.env.YO_API_TOKEN);
 })();
 
-function handleSubscriber(doc, next) {
-  var last = moment(doc.lastUpdate);
+handleSubscriber();
 
-  // detect if there are updates to the subreddit
-  async.detect(doc.following, function(subreddit, cb) {
-    request.get('http://www.reddit.com/r/' + subreddit + '/new.json').end(function(err, res) {
-      if (err) {
-        return cb(null);
-      }
-      try {
-        var posts = res.body.data.children;
-      } catch (e) {
-        return cb(null);
-      }
-      cb(_.find(posts, function(post) {
-        return last.isBefore(post.created_utc);
-      }));
-    });
-  }, function(result) {
-    if (!result) {
-      return next();
+function handleSubscriber() {
+  request('http://www.google.com', function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log(body)
     }
-
-    console.log('Found new listings for ' + doc.yo);
-    yo.yo(doc.yo, function() {
-      doc.lastUpdate = new Date();
-      doc.save(next);
-    });
   });
 };
 
-function updateSubscribers() {
-  Subscriber.find().exec(function(err, docs) {
-    async.each(docs, function(doc, next) {
-      handleSubscriber(doc, next);
-    }, function(err) {
-      if (err) {
-        console.log(err);
-      }
-      console.log('Updated ' + docs.length + ' subscribers.');
-    });
-  });
-}
-setInterval(updateSubscribers, 60000);
-updateSubscribers();
+// function updateSubscribers() {
+//   Subscriber.find().exec(function(err, docs) {
+//     async.each(docs, function(doc, next) {
+//       handleSubscriber(doc, next);
+//     }, function(err) {
+//       if (err) {
+//         console.log(err);
+//       }
+//       console.log('Updated ' + docs.length + ' subscribers.');
+//     });
+//   });
+// }
+// setInterval(updateSubscribers, 60000);
+// updateSubscribers();
 
 // Start server
 server.listen(config.port, config.ip, function() {

@@ -6,7 +6,7 @@ angular.module('yoCraigslistApp')
 
     $scope.submit = function() {
       $http.post('/register', $scope.data).success(function(data) {
-        alert("registered!");
+        $(".resp").show();
       });
     };
   });

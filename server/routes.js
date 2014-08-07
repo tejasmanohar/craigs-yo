@@ -11,7 +11,7 @@ module.exports = function(app) {
   app.route('/register')
     .post(function(req, res) {
       var yoName = req.body.yoName;
-      var subreddit = req.body.subreddit;
+      var link = req.body.link;
 
       var Subscriber = mongoose.model('Subscriber');
       Subscriber.findOne({
@@ -20,11 +20,11 @@ module.exports = function(app) {
         if (!doc) {
           doc = new Subscriber({
             yo: yoName.toLowerCase(),
-            following: [subreddit],
+            following: [link],
             lastUpdate: new Date()
           });
         } else {
-          doc.following.push(subreddit);
+          doc.following.push(link);
         }
         doc.save(function(err) {
           res.send('OK');
