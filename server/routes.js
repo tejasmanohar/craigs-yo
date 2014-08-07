@@ -20,8 +20,7 @@ module.exports = function(app) {
         if (!doc) {
           doc = new Subscriber({
             yo: yoName.toLowerCase(),
-            following: [link],
-            lastUpdate: new Date()
+            url: [link]
           });
         } else {
           doc.following.push(link);

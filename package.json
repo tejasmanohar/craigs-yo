@@ -21,6 +21,7 @@
     "moment": "^2.8.1",
     "mongoose": "~3.8.8",
     "morgan": "~1.0.0",
+    "request": "^2.40.0",
     "static-favicon": "~1.0.1",
     "superagent": "^0.18.2",
     "twit": "^1.1.18",

@@ -12,8 +12,8 @@ var async = require('async');
 var express = require('express');
 var moment = require('moment');
 var mongoose = require('mongoose');
-var request = require('superagent');
 var config = require('./config/environment');
+var request = require('request');
 
 process.on('uncaughtException', function (err) {
   console.log('Caught exception: ' + err);
@@ -31,8 +31,8 @@ var Subscriber = mongoose.model('Subscriber', new mongoose.Schema({
     type: String,
     unique: true
   },
-  following: [String],
-  lastUpdate: Date
+  url: String,
+  content: String
 }));
 
 // Setup server
@@ -47,8 +47,6 @@ var yo = (function() {
   var Yo = require('yo-api');
   return new Yo(process.env.YO_API_TOKEN);
 })();
-
-handleSubscriber();
 
 function handleSubscriber() {
   request('http://www.google.com', function (error, response, body) {
