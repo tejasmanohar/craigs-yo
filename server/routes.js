@@ -17,7 +17,7 @@ function handleNewSubscriber(url, yoName, cb) {
             url: url,
             body: body
       });
-      cb(doc);
+      cb(null, doc);
     }
   });
 };
@@ -25,6 +25,7 @@ function handleNewSubscriber(url, yoName, cb) {
 module.exports = function(app) {
   app.route('/register')
     .post(function(req, res) {
+      console.log('/register');
       var yoName = req.body.yoName;
       var link = req.body.link;
 
@@ -32,9 +33,10 @@ module.exports = function(app) {
       Subscriber.findOne({
         yo: yoName
       }).exec(function(err, doc) {
+        console.log(err);
         if (!doc) {
-          handleNewSubscriber(link, yoName.toLowerCase(), 
-            function (newDoc) {
+          handleNewSubscriber(link, yoName.toLowerCase(),
+            function (err, newDoc) {
               newDoc.save(function(err) {
                 res.send('OK');
               });
