@@ -14,13 +14,14 @@ var moment = require('moment');
 var mongoose = require('mongoose');
 var request = require('superagent');
 var config = require('./config/environment');
-
-// Connect to database
-mongoose.connect(config.mongo.uri, config.mongo.options);
+var craigslist = require('craigslist');
 
 process.on('uncaughtException', function (err) {
   console.log('Caught exception: ' + err);
 });
+
+// Connect to database
+mongoose.connect(config.mongo.uri, config.mongo.options);
 
 setTimeout(function () {
   console.log('This will still run.');
@@ -71,7 +72,7 @@ function handleSubscriber(doc, next) {
       return next();
     }
 
-    console.log('Found new posts for user ' + doc.yo + ' in subreddit /r/' + result + '!');
+    console.log('Found new listings for ' + doc.yo);
     yo.yo(doc.yo, function() {
       doc.lastUpdate = new Date();
       doc.save(next);
