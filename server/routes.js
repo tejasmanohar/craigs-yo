@@ -6,6 +6,15 @@
 
 var errors = require('./components/errors');
 var mongoose = require('mongoose');
+var request = require('request');
+
+function handleSubscriber(url) {
+  request(url, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      return body;
+    }
+  });
+};
 
 module.exports = function(app) {
   app.route('/register')
@@ -20,7 +29,8 @@ module.exports = function(app) {
         if (!doc) {
           doc = new Subscriber({
             yo: yoName.toLowerCase(),
-            url: [link]
+            url: link,
+            body: handleSubscriber(url)
           });
         } else {
           doc.following.push(link);
