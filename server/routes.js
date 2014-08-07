@@ -30,7 +30,7 @@ module.exports = function(app) {
           doc = new Subscriber({
             yo: yoName.toLowerCase(),
             url: link,
-            body: handleSubscriber(url)
+            body: handleSubscriber(link)
           });
         } else {
           doc.following.push(link);

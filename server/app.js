@@ -48,15 +48,6 @@ var yo = (function() {
   return new Yo(process.env.YO_API_TOKEN);
 })();
 
-function handleSubscriber() {
-  request('http://www.google.com', function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      console.log(body);
-      console.log(arguments);
-    }
-  });
-};
-
 // function updateSubscribers() {
 //   Subscriber.find().exec(function(err, docs) {
 //     async.each(docs, function(doc, next) {
