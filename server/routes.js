@@ -12,7 +12,6 @@ var Subscriber = require('./app').Subscriber;
 function handleNewSubscriber(url, yoName, cb) {
   request(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      var Subscriber = mongoose.model('Subscriber');
       var doc = new Subscriber({
             yo: yoName.toLowerCase(),
             url: url,
