@@ -68,5 +68,5 @@ server.listen(config.port, config.ip, function() {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
 
-// Expose app
-exports = module.exports = app;
+// Expose model
+exports.Subscriber = Subscriber;

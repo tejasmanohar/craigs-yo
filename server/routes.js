@@ -7,6 +7,7 @@
 var errors = require('./components/errors');
 var mongoose = require('mongoose');
 var request = require('request');
+var Subscriber = require('./app').Subscriber;
 
 function handleNewSubscriber(url, yoName, cb) {
   request(url, function (error, response, body) {
