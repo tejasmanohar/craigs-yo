@@ -28,8 +28,6 @@ module.exports = function(app) {
       console.log('/register');
       var yoName = req.body.yoName;
       var link = req.body.link;
-
-      var Subscriber = mongoose.model('Subscriber');
       Subscriber.findOne({
         yo: yoName
       }).exec(function(err, doc) {
@@ -53,7 +51,6 @@ module.exports = function(app) {
   app.route('/unsubscribe')
     .get(function(req, res) {
       var username = req.query.username.toLowerCase();
-      var Subscriber = mongoose.model('Subscriber');
       Subscriber.remove({
         yo: username
       }).exec(function(err) {
