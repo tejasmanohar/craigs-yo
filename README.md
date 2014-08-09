@@ -8,7 +8,7 @@ Roadmap
 ========
 1. URL validation for [craigslist.org](http://craigslist.org) and status code 200
 2. Authentication through [YoAuth](https://yoauth.herokuapp.com)
-3. Ability to manage current subscriptions for logged-in users
+3. Ability to manage current subscriptions for verified users
 
 Inspiration
 ============
