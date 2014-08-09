@@ -1,4 +1,4 @@
-Features 
+Features
 =========
 1. Takes in Yo username and craigslist search URL as input
 2. Sends a Yo per new listing for given search
