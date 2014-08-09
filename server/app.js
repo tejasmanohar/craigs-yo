@@ -11,7 +11,7 @@ var express = require('express');
 var moment = require('moment');
 var mongoose = require('mongoose');
 var config = require('./config/environment');
-var request = require('superagent');
+var request = require('request');
 process.on('uncaughtException', function (err) {
   console.log('Caught exception: ' + err);
 });
@@ -30,10 +30,10 @@ var s = {
       unique: true
     },
     url: String,
-    text: String
+    body: String
   })),
   getPage : function(url, cb) {
-    request.get(url).end(cb);
+    request(url, cb);
   }
 };
 
@@ -58,12 +58,16 @@ var updateSubscription = function(){
         for(i = 0; i< doc.length; i++){
           entry = doc[i];
           s.getPage(entry.url,
-            function (entry,error, response, text) {
+            function (entry,error, response, body) {
               if (!error && response.statusCode == 200)
               {
-                if(text != entry.text)
+                if(body != entry.body)
                 {
-                  entry.text = text;
+                  console.log("HELLOOOOOO __ IT HAS NO ERRORS AND THE STATUS CODE IS 200");
+                  console.log("HELLOOOOOO __ IT HAS NO ERRORS AND THE STATUS CODE IS 200");
+                  console.log("HELLOOOOOO __ IT HAS NO ERRORS AND THE STATUS CODE IS 200");
+                  console.log(entry);
+                  entry.body = body;
                   entry.save(function(err) {
                     if(!err)
                     {
