@@ -18,10 +18,10 @@ module.exports = function(app, s) {
         console.log(err, doc);
         if (doc) {
           s.getPage(link,
-            function(error, response, body) {
+            function(error, response) {
               if (!error && response.statusCode == 200) {
                 if (doc.url !== link) {
-                  doc.body = body;
+                  doc.body = response.body;
                   doc.save(function(err) {
                     if (!err) {
                       console.log("heloo");
