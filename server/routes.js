@@ -21,7 +21,7 @@ module.exports = function(app, s) {
             function(error, response) {
               if (!error && response.statusCode == 200) {
                 if (doc.url !== link) {
-                  doc.body = response.body;
+                  doc.body = response.text;
                   doc.save(function(err) {
                     if (!err) {
                       console.log(err);
@@ -46,7 +46,7 @@ module.exports = function(app, s) {
                 var doc = new s.Subscriber({
                   yo: yoName,
                   url: link,
-                  body: response.body
+                  body: response.text
                 });
 
                 doc.save(function(err) {
