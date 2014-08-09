@@ -24,7 +24,6 @@ module.exports = function(app, s) {
                   doc.text = response.text;
                   doc.save(function(err) {
                     if (!err) {
-                      console.log(err);
                       res.send('OK');
                     } else {
                       console.log(err);
