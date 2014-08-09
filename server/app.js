@@ -30,7 +30,7 @@ var s = {
       unique: true
     },
     url: String,
-    body: String
+    text: String
   })),
   getPage : function(url, cb) {
     request.get(url).end(cb);
@@ -58,12 +58,12 @@ var updateSubscription = function(){
         for(i = 0; i< doc.length; i++){
           entry = doc[i];
           s.getPage(entry.url,
-            function (entry,error, response, body) {
+            function (entry,error, response, text) {
               if (!error && response.statusCode == 200)
               {
-                if(body != entry.body)
+                if(text != entry.text)
                 {
-                  entry.body = body;
+                  entry.text = text;
                   entry.save(function(err) {
                     if(!err)
                     {
