@@ -12,6 +12,6 @@ Roadmap
 
 Inspiration
 ============
-1. Design - http://justyo.co
-2. Logic - http://git.io/2qzK7g
-3. Slangs - http://git.io/ofAAvA
+1. [Design](http://justyo.co)
+2. [Logic](http://git.io/2qzK7g)
+3. [Slangs](http://git.io/ofAAvA)
