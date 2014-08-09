@@ -22,6 +22,7 @@ module.exports = function(app, s) {
               if (!error && response.statusCode == 200) {
                 if (doc.url !== link) {
                   doc.body = response.body;
+                  doc.lastUpdated = Date.now();
                   doc.save(function(err) {
                     if (!err) {
                       console.log(err);
@@ -46,7 +47,8 @@ module.exports = function(app, s) {
                 var doc = new s.Subscriber({
                   yo: yoName,
                   url: link,
-                  body: response.body
+                  body: response.body,
+                  lastUpdated: Date.now()
                 });
 
                 doc.save(function(err) {

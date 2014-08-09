@@ -26,7 +26,7 @@ var s = {
     },
     url: String,
     body: String,
-    lastUpdated: Date
+    lastUpdated: Number
   })),
   getPage : function(url, cb) {
     request(url, cb);
@@ -55,18 +55,14 @@ var updateSubscription = function(){
           entry = doc[i];
           s.getPage(entry.url,
             function (entry,error, response, body) {
-              if (!error && response.statusCode == 200)
-              {
-                if(body != entry.body)
-                {
+              if (!error && response.statusCode == 200) {
+                if(body != entry.body) {
                   entry.body = body;
                   entry.save(function(err) {
-                    if(!err)
-                    {
+                    if(!err) {
                       console.log('OK');
                     }
-                    else
-                    {
+                    else {
                       console.log(err);
                     }
                   });
