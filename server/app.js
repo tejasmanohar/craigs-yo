@@ -74,7 +74,6 @@ var updateSubscription = function(){
                   yo.yo(entry.yo, function() {
                     console.log("Yo'ed user" + entry.yo + ' !');
                   });
-                  setTimeout()
                 }
                 else
                 {
