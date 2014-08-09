@@ -11,7 +11,7 @@ var express = require('express');
 var moment = require('moment');
 var mongoose = require('mongoose');
 var config = require('./config/environment');
-var request = require('request');
+var request = require('superagent');
 process.on('uncaughtException', function (err) {
   console.log('Caught exception: ' + err);
 });
@@ -20,6 +20,8 @@ mongoose.connect(config.mongo.uri, config.mongo.options);
 setTimeout(function () {
   console.log('This will still run.');
 }, 500);
+
+console.log(config.mongo.uri);
 
 var s = {
   Subscriber : mongoose.model('Subscriber', new mongoose.Schema({
@@ -31,7 +33,7 @@ var s = {
     body: String
   })),
   getPage : function(url, cb) {
-    request(url, cb);
+    request.get(url).end(cb);
   }
 };
 

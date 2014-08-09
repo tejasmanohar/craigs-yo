@@ -25,21 +25,25 @@ module.exports = function(app,s){
                   doc.save(function(err) {
                     if(!err)
                     {
+                      console.log("heloo");
                       res.send('OK');
                     }
                     else
                     {
+                      console.log("qwerty");
                       res.send(err);
                     }
                   });
                 }
                 else
                 {
+                  console.log("jklm");
                   res.send('You are already subscribed for this address');
                 }
               }
               else
               {
+                console.log("zxc");
                 res.send(error);
               }
             }
@@ -51,6 +55,7 @@ module.exports = function(app,s){
             function (error, response, body) {
               if (!error && response.statusCode == 200)
               {
+                console.log("testtestestest");
                 var doc = new s.Subscriber({
                   yo: yoName,
                   url: link,
@@ -60,16 +65,20 @@ module.exports = function(app,s){
                 doc.save(function(err) {
                   if(!err)
                   {
+                    console.log("hereeee");
                     res.send('OK');
                   }
                   else
                   {
+                    console.log("asdf");
                     res.send(err);
                   }
                 });
               }
               else
               {
+                console.log(response);
+                console.log(body);
                 res.send(error);
               }
             }
