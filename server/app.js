@@ -25,7 +25,8 @@ var s = {
       unique: true
     },
     url: String,
-    body: String
+    body: String,
+    lastUpdated: Date
   })),
   getPage : function(url, cb) {
     request(url, cb);
@@ -58,10 +59,6 @@ var updateSubscription = function(){
               {
                 if(body != entry.body)
                 {
-                  console.log("HELLOOOOOO __ IT HAS NO ERRORS AND THE STATUS CODE IS 200");
-                  console.log("HELLOOOOOO __ IT HAS NO ERRORS AND THE STATUS CODE IS 200");
-                  console.log("HELLOOOOOO __ IT HAS NO ERRORS AND THE STATUS CODE IS 200");
-                  console.log(entry);
                   entry.body = body;
                   entry.save(function(err) {
                     if(!err)
@@ -77,6 +74,7 @@ var updateSubscription = function(){
                   yo.yo(entry.yo, function() {
                     console.log("Yo'ed user" + entry.yo + ' !');
                   });
+                  setTimeout()
                 }
                 else
                 {
