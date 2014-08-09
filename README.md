@@ -6,9 +6,9 @@ Features
 
 Roadmap
 ========
-1. Username validation through [YoAuth](https://yoauth.herokuapp.com)
-2. URL validation for [craigslist.org](http://craigslist.org) and status code 200
-3. Manage current subscriptions using [Passport](http://passportjs.org) [YoAuth](https://yoauth.herokuapp.com)
+1. URL validation for [craigslist.org](http://craigslist.org) and status code 200
+2. Authentication through [Passport](http://passportjs.org) and [YoAuth](https://yoauth.herokuapp.com)
+3. Portal to manage current subscriptions for logged-in users
 
 Inspiration
 ============
