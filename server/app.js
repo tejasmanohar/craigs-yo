@@ -17,11 +17,6 @@ process.on('uncaughtException', function (err) {
 });
 
 mongoose.connect(config.mongo.uri, config.mongo.options);
-setTimeout(function () {
-  console.log('This will still run.');
-}, 500);
-
-console.log(config.mongo.uri);
 
 var s = {
   Subscriber : mongoose.model('Subscriber', new mongoose.Schema({
