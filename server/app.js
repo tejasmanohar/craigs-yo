@@ -53,8 +53,9 @@ function checkUpdates(sub, cb) {
           return cb();
         });
       });
+    } else {
+      cb();
     }
-    cb();
   });
 }
 
