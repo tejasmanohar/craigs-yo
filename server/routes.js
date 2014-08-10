@@ -15,7 +15,7 @@ module.exports = function(app, s) {
       .findOne({
         "yo": yoName
       }, function(err, doc) {
-        console.log(err, doc);
+        // console.log(err, doc);
         if (doc) {
           s.getPage(link,
             function(error, response) {

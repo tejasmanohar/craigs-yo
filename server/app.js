@@ -1,6 +1,6 @@
 /**
  * Main application file
- */
+ **/
 
 'use strict';
 // Set default node environment to development
@@ -33,7 +33,6 @@ var s = {
   }
 };
 
-
 var app = express();
 var server = require('http').createServer(app);
 require('./config/express')(app);
@@ -44,51 +43,47 @@ var yo = (function() {
   return new Yo(process.env.YO_API_TOKEN);
 })();
 
-
 var updateSubscription = function(){
-  var i, entry;
   s.Subscriber
-    .find(function (err, doc) {
+    .findOne({}, null, {sort:{lastUpdated : 1}} ,function (err, doc) {
+      console.log("yo : ", doc.yo, "lastUpdated : ", doc.lastUpdated);
       if(doc)
       {
-        for(i = 0; i< doc.length; i++){
-          entry = doc[i];
-          s.getPage(entry.url,
-            function (entry,error, response, body) {
-              if (!error && response.statusCode == 200) {
-                if(body != entry.body) {
-                  entry.body = body;
-                  entry.save(function(err) {
-                    if(!err) {
-                      console.log('OK');
-                    }
-                    else {
-                      console.log(err);
-                    }
-                  });
-                  console.log('Found new listings for user ' + entry.yo + ' !');
-                  yo.yo(entry.yo, function() {
-                    console.log("Yo'ed user" + entry.yo + ' !');
-                  });
-                }
-                else
-                {
-                  console.log('You are now subscribed!');
-                }
+        s.getPage(doc.url,
+          function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+              if(body != doc.body) {
+                doc.body = body;
+                console.log('Found new listings for user ' + doc.yo + '!');
+                yo.yo(doc.yo, function() {
+                  console.log("Yo'ed user " + doc.yo + '!');
+                });
               }
               else
               {
-                console.log(error);
+                console.log('And the subscription continues...');
               }
-            }.bind(this, entry)
-          );
-        }
+            }
+            else
+            {
+              console.log(error);
+            }
+          }
+        );
+        doc.lastUpdated = Date.now();
+        doc.save(function(err) {
+          if(!err) {
+            console.log('OK');
+          }
+          else {
+            console.log(err);
+          }
+        });
       }
     });
 };
 
 var interval = setInterval(updateSubscription, 61000);
-
 
 server.listen(config.port, config.ip, function() {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
