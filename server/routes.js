@@ -59,8 +59,8 @@ module.exports = function(app) {
   });
 
   app.get('/unsubscribe', function(req, res) {
-    if (!req.body.yoName) {
-      return res.status(400).send('yoName not specified.');
+    if (!req.query.username) {
+      return res.status(400).send('username not specified.');
     }
 
     var yoName = req.query.username.toLowerCase();
