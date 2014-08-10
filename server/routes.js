@@ -41,7 +41,7 @@ module.exports = function(app) {
         var doc = new Subscriber({
           yo: yoName,
           url: link,
-          hash: md5(response.body)
+          hash: md5(response.text)
         });
 
         doc.save(function(err) {
