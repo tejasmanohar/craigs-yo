@@ -13,10 +13,6 @@ var mongoose = require('mongoose');
 var request = require('superagent');
 var config = require('./config/environment');
 
-process.on('uncaughtException', function(err) {
-  console.log('Caught exception: ' + err);
-});
-
 mongoose.connect(config.mongo.uri, config.mongo.options);
 
 var Subscriber = mongoose.model('Subscriber', new mongoose.Schema({
@@ -39,30 +35,37 @@ var yo = (function() {
   return new Yo('f75acaea-0da1-0995-f842-61ad42c50ae1');
 })();
 
-function checkUpdates(subscriber, cb) {
-  request.get(yo.url).end(function(err, response) {
-    var hash = md5(response.text);
-    if (subscriber.hash !== hash) {
-      subscriber.hash = hash;
-      return cb(true);
-    }
-    cb(false);
-  });
-}
-
-function onSubscriberUpdate(sub) {
-  console.log('Sent yo to subscriber %s for Craigslist updates.', sub.yo);
-  sub.save(function(err) {
+function checkUpdates(sub, cb) {
+  request.get(sub.url).end(function(err, response) {
     if (err) {
       console.log(err);
+      return cb();
     }
+    var hash = md5(response.text);
+    if (sub.hash !== hash) {
+      sub.hash = hash;
+      yo.yo(sub.yo, function() {
+        console.log('Sent yo to subscriber %s for Craigslist updates.', sub.yo);
+        sub.save(function(err) {
+          if (err) {
+            console.log(err);
+          }
+          return cb();
+        });
+      });
+    }
+    cb();
   });
 }
 
 function updateSubscriptions() {
   Subscriber.find({}).exec(function(err, docs) {
-    async.detect(docs, checkUpdates, function(sub) {
-      yo.yo(sub.yo, onSubscriberUpdate);
+    if (err) {
+      console.log(err);
+      return;
+    }
+    async.each(docs, checkUpdates, function() {
+      console.log('Done!');
     });
   });
 }
