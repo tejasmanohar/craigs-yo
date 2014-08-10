@@ -21,8 +21,7 @@ var Subscriber = mongoose.model('Subscriber', new mongoose.Schema({
     unique: true
   },
   url: String,
-  hash: String,
-  lastUpdated: Number
+  hash: String
 }));
 
 var app = express();
