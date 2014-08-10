@@ -1,6 +1,6 @@
 /**
  * Main application routes
- */
+ **/
 
 'use strict';
 
