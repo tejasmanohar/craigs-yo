@@ -32,6 +32,7 @@ module.exports = function(app) {
       }
 
       request.get(link).end(function(error, response) {
+        console.log(response);
         if (error) {
           console.log(error);
           return res.status(400).send('Error');
