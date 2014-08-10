@@ -4,74 +4,65 @@
 
 'use strict';
 
-module.exports = function(app, s) {
+var md5 = require('MD5');
+var mongoose = require('mongoose');
+var request = require('superagent');
+
+module.exports = function(app) {
   var errors = require('./components/errors');
 
+  var Subscriber = mongoose.model('Subscriber');
+
   app.post('/register', function(req, res) {
-    var yoName = req.body.yoName.toLowerCase(),
-      link = req.body.link;
+    if (!req.body.yoName) {
+      return res.status(400).send('yoName not specified.');
+    }
 
-    s.Subscriber
-      .findOne({
-        "yo": yoName
-      }, function(err, doc) {
-        // console.log(err, doc);
-        if (doc) {
-          s.getPage(link,
-            function(error, response) {
-              if (!error && response.statusCode == 200) {
-                if (doc.url !== link) {
-                  doc.body = response.body;
-                  doc.lastUpdated = Date.now();
-                  doc.save(function(err) {
-                    if (!err) {
-                      console.log(err);
-                      res.send('OK');
-                    } else {
-                      console.log(err);
-                      res.send(err);
-                    }
-                  });
-                } else {
-                  res.send('You are already subscribed for this address');
-                }
-              } else {
-                res.send(error);
-              }
-            }
-          );
-        } else {
-          s.getPage(link,
-            function(error, response) {
-              if (!error && response.statusCode == 200) {
-                var doc = new s.Subscriber({
-                  yo: yoName,
-                  url: link,
-                  body: response.body,
-                  lastUpdated: Date.now()
-                });
+    if (!req.body.link) {
+      return res.status(400).send('link not specified.');
+    }
 
-                doc.save(function(err) {
-                  if (!err) {
-                    res.send('OK');
-                  } else {
-                    res.send(err);
-                  }
-                });
-              } else {
-                console.log(error);
-                res.send(error);
-              }
-            }
-          );
+    var yoName = req.body.yoName.toLowerCase();
+    var link = req.body.link;
+
+    Subscriber.findOne({
+      "yo": yoName
+    }, function(err, doc) {
+      if (doc) {
+        return res.status(400).send('You are already subscribed to an address.');
+      }
+
+      request.get(link).end(function(error, response) {
+        if (error) {
+          console.log(error);
+          return res.status(400).send('Error');
         }
+
+        var doc = new Subscriber({
+          yo: yoName,
+          url: link,
+          hash: md5(response.body)
+        });
+
+        doc.save(function(err) {
+          if (!err) {
+            res.send('OK');
+          } else {
+            res.send(err);
+          }
+        });
       });
+    });
   });
 
   app.get('/unsubscribe', function(req, res) {
+    if (!req.body.yoName) {
+      return res.status(400).send('yoName not specified.');
+    }
+
     var yoName = req.query.username.toLowerCase();
-    s.Subscriber.remove({
-      "yo": yoName
+    Subscriber.remove({
+      yo: yoName
     }, function(err, result) {
       if (result) {
         res.send('OK');
