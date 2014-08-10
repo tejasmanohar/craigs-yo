@@ -48,6 +48,8 @@ module.exports = function(app) {
           if (!err) {
             res.send('OK');
           } else {
+            console.log(response);
+            console.log(error);
             res.send(err);
           }
         });
