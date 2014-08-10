@@ -1,13 +1,12 @@
 Features
 =========
 1. Takes in Yo username and craigslist search URL as input
-2. Sends a Yo per new listing for given search
+2. Sends Yo per new listing for given search
 
 Roadmap
 ========
-1. URL validation for [craigslist.org](http://craigslist.org) and status code 200
-2. Authentication through [YoAuth](https://yoauth.herokuapp.com)
-3. Ability to manage current subscriptions for verified users
+1. Allow multiple search subscriptions per user
+2. Attach search link to corresponding Yo
 
 Inspiration
 ============
