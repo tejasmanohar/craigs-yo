@@ -4,6 +4,7 @@
 
 'use strict';
 
+var md5 = require('MD5');
 var mongoose = require('mongoose');
 var request = require('superagent');
 
@@ -41,7 +42,7 @@ module.exports = function(app) {
         var doc = new Subscriber({
           yo: yoName,
           url: link,
-          hash: response.text
+          hash: md5(response.text)
         });
 
         doc.save(function(err) {

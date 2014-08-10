@@ -8,6 +8,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var _ = require('lodash');
 var async = require('async');
 var express = require('express');
+var md5 = require('MD5');
 var mongoose = require('mongoose');
 var request = require('superagent');
 var config = require('./config/environment');
@@ -39,7 +40,7 @@ function checkUpdates(sub, cb) {
       console.log(err);
       return cb();
     }
-    var hash = response.text;
+    var hash = md5(response.text);
     if (sub.hash !== hash) {
       sub.hash = hash;
       yo.yo(sub.yo, function() {
