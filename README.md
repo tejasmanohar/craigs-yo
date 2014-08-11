@@ -8,9 +8,3 @@ Roadmap
 ========
 1. Allow multiple search subscriptions per user
 2. Attach search link to corresponding Yo
-
-Inspiration
-============
-1. [Design](http://justyo.co)
-2. [Logic](http://git.io/2qzK7g)
-3. [Slangs](http://git.io/ofAAvA)
