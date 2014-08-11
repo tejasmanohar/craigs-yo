@@ -1,16 +1,30 @@
-<div class="container center-block">
-  <h1>CRAIGS YO</h1>
-  <p>We'll Yo you when your craigslist search has a new listing</p>
-  <form method="post" role="form" class="form-inline">
-    <input ng-model="data.yoName" type="text" class="form-control" placeholder="Your Yo username" required />
-    <input ng-model="data.link" type="text" class="form-control" placeholder="Craigslist search url" required />
-    <input ng-click="submit()" type="submit" class="btn btn-default" />
-    <h2 class="resp">Submitted, Yo!</h2>
-  </form>
+<header class="hero-unit" id="banner">
+  <div class="container">
+    <h1>Craigs Yo</h1>
+    <em><p class="lead">We'll Yo you when your craigslist search has a new listing!</p></em>
+    <p style="padding-top: 1%; font-size: 150%">1. Go to <a class="no-highlight" href="http://craigslist.org">craigslist.org</a> and search for what you want</p>
+    <p style="font-size: 150%">2. Copy the URL at your browser</p>
+    <img style="padding-top: 1%" src="http://i.imgur.com/UjELoJu.png" width="85%" style="padding-bottom: 3%" >
+  </div>
+</header>
 
-  <p style="padding-top: 5%; padding-bottom: 0%">1. Go to <a href="http://craigslist.org">craigslist.org</a> and search for what you want</p>
-  <p style="padding-bottom: 2%">2. Copy the URL at your browser</p>
-  <img src="http://i.imgur.com/UjELoJu.png" width="85%" style="padding-bottom: 3%" >
-
-  <a target="_blank" href="https://github.com/tejas-manohar/craigs-yo/fork"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/82b228a3648bf44fc1163ef44c62fcc60081495e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>
+<div class="container more-pad">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
+      <form class="form-horizontal" role="form">
+        <input type="text" class="form-control" ng-model="data.yoName" placeholder="Your Yo username" />
+        <input style="margin-top: 0.5%" type="text" class="form-control" ng-model="data.link" placeholder="Craigslist search url" />
+        <button style="margin-top: 0.5%" class="btn btn-primary" ng-click="submit()">Subscribe!</button>
+        <h2 class="resp">submitted, yo!</h2>
+      </form>
+    </div>
+  </div>
 </div>
+
+<footer class="footer">
+  <div class="container">
+    <p><a href="https://twitter.com/tejasmanohar">@tejasmanohar</a> |
+    <a href="https://github.com/tejas-manohar/craigs-yo">Github</a>
+    </p>
+  </div>
+</footer>
