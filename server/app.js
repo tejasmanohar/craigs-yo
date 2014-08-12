@@ -31,7 +31,7 @@ require('./routes')(app);
 
 var yo = (function() {
   var Yo = require('yo-api');
-  return new Yo('f75acaea-0da1-0995-f842-61ad42c50ae1');
+  return new Yo(process.env.YO_API_TOKEN);
 })();
 
 function checkUpdates(sub, cb) {
