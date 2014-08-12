@@ -13,6 +13,10 @@ var mongoose = require('mongoose');
 var request = require('superagent');
 var config = require('./config/environment');
 
+process.on('uncaughtException', function (err) {
+  console.log('Caught exception: ' + err);
+});
+
 mongoose.connect(config.mongo.uri, config.mongo.options);
 
 var Subscriber = mongoose.model('Subscriber', new mongoose.Schema({
