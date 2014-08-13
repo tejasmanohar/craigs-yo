@@ -47,7 +47,7 @@ function checkUpdates(sub, cb) {
     var hash = md5(response.text);
     if (sub.hash !== hash) {
       sub.hash = hash;
-      yo.yo(sub.yo, function() {
+      yo.yo_link(sub.yo, sub.url, function() {
         console.log('Sent yo to subscriber %s for Craigslist updates.', sub.yo);
         sub.save(function(err) {
           if (err) {

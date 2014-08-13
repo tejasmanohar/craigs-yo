@@ -27,7 +27,7 @@
     "static-favicon": "~1.0.1",
     "superagent": "^0.18.2",
     "twit": "^1.1.18",
-    "yo-api": "^0.2.0"
+    "yo-api": "git://github.com/tejas-manohar/node-yo-api.git"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
