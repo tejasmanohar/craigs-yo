@@ -15,11 +15,11 @@ module.exports = function(app) {
 
   app.post('/register', function(req, res) {
     if (!req.body.yoName) {
-      return res.status(400).send('yoName not specified.');
+      return;
     }
 
     if (!req.body.link) {
-      return res.status(400).send('link not specified.');
+      return;
     }
 
     var yoName = req.body.yoName.toLowerCase();
