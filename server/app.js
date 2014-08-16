@@ -1,3 +1,4 @@
+
 /**
  * Main application file
  **/
@@ -68,14 +69,14 @@ function updateSubscriptions() {
       console.log(err);
       return;
     }
-    async.each(docs, checkUpdates, function() {
+    async.eachSeries(docs, checkUpdates, function() {
       console.log('Done!');
     });
   });
 }
 
 updateSubscriptions();
-setInterval(updateSubscriptions, 60000);
+setInterval(updateSubscriptions, 900000);
 
 server.listen(config.port, config.ip, function() {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
