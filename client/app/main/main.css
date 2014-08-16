@@ -26,6 +26,11 @@ body {
   color: #9b59b6;
 }
 
+.resp-err {
+  display: none;
+  color: #ff0033;
+}
+
 .more-pad {
   padding-top: 1%;
 }
