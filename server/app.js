@@ -76,7 +76,7 @@ function updateSubscriptions() {
 }
 
 updateSubscriptions();
-setInterval(updateSubscriptions, 900000);
+setInterval(updateSubscriptions, 1800000);
 
 server.listen(config.port, config.ip, function() {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
